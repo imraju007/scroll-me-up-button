@@ -1,0 +1,280 @@
+.scrollmeup_main {
+    background: #F0F0F1;
+    margin-left: -20px;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+}
+
+.scrollmeup_body{
+    flex: 1;
+    max-width: 1000px;
+    background: #fff;
+    padding: 40px;
+}
+
+.scrollmeup_body_header{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    margin-bottom: 20px;
+}
+.scrollmeup_body_header .scrollmeup_body_header_save_btn{
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: #EF5812 url(../img/others/save_icon.svg) no-repeat;
+    background-size: 18px;
+    background-position-x: 12px;
+    background-position-y: center;
+    color: #FFFFFF;
+    border: 1px solid #EF5812;
+    border-radius: 7px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 1px;
+    padding: 8px 14px 8px 42px;
+    font-size: 13px;
+}
+
+
+
+.scrollmeup_section_block{
+    background: #F9FAFB;
+    border: 1px solid #E8EBEE;
+    padding: 25px;
+}
+.scrollmeup_preview_section_block{
+    background: #F9FAFB;
+    border: 1px solid #E8EBEE;
+    padding: 25px;
+    width: 100%;
+}
+
+.scrollmeup_section_header{
+    margin: 40px 0 15px 0;
+}
+.scrollmeup_section_header h3{
+    margin: 0;
+    font-size: 23px;
+    font-weight: 700;
+    color: #121116;
+}
+.scrollmeup_section_header p{
+    margin: 5px 0 0 0;
+    font-size: 16px;
+    font-weight: 400;
+    color: #72777C;
+}
+
+.scrollmeup_section_block_separator{
+    height: 1px;
+    background: #E8EBEE;
+    margin: 20px 0;
+}
+
+
+
+/* ========================
+    Checkbox Setting Design
+===========================*/
+.scrollmeup_checkbox_setting{
+    display: flex;
+    align-items: flex-start;
+}
+.scrollmeup_checkbox_setting .scrollmeup_checkbox_setting_details{
+    margin: 0 0 0 20px;
+}
+.scrollmeup_checkbox_setting .scrollmeup_checkbox_setting_details h4{
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    color: #000000;
+}
+.scrollmeup_checkbox_setting .scrollmeup_checkbox_setting_details p{
+    margin: 5px 0 0 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: #72777C;
+}
+.scrollmeup_checkbox_setting .scrollmeup_checkbox_item{
+    display: inline-block;
+    position: relative;
+    width: 17px;
+    cursor: pointer;
+    margin: 2px 0 0 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: #43454b;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.scrollmeup_checkbox_setting .scrollmeup_checkbox_item input[type="checkbox"]{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+.scrollmeup_checkbox_setting .scrollmeup_checkbox_item .scrollmeup_checkbox_checkmark{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    border-radius: 0;
+}
+.scrollmeup_checkbox_setting .scrollmeup_checkbox_item input[type="checkbox"]:checked ~ .scrollmeup_checkbox_checkmark {
+    border: 1px solid #000000;
+    background: #000000 url("../img/others/checkbox_tick_icon.svg") no-repeat;
+    background-size: 9px;
+    background-position-x: center;
+    background-position-y: center;
+}
+.scrollmeup_checkbox_setting.pro_lock {
+    opacity: 0.3;
+}
+
+
+/* ========================
+    Switch Items Setting Design
+===========================*/
+.scrollmeup_switch_items{
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    row-gap: 10px;
+}
+.scrollmeup_switch_items .scrollmeup_switch_item {
+    position: relative;
+    cursor: pointer;
+    width: 100px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border: 1px solid #E8EBEE;
+    border-radius: 10px;
+}
+.scrollmeup_switch_items .scrollmeup_switch_item.active{
+    border: 1px solid #000000;
+}
+
+
+/* ========================
+    Switch Preview Design
+===========================*/
+.scrollmeup_settings_with_switch_preview{
+    display: flex;
+    gap: 10px;
+}
+.scrollmeup_switch_preview{
+    width: 210px;
+    height: 100px;
+    background: #F9FAFB;
+    border: 1px solid #E8EBEE;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scrollmeup_switch_preview .scrollmeup_switch{
+    display: none;
+}
+.scrollmeup_switch_preview .scrollmeup_switch.selected{
+    display: inherit;
+}
+
+
+/* ========================
+    Input Setting Design
+===========================*/
+.scrollmeup_input_select_setting{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.scrollmeup_input_select_setting .scrollmeup_input_select_setting_details{
+    margin: 0 15px 0 0;
+}
+.scrollmeup_input_select_setting .scrollmeup_input_select_setting_details h4{
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    color: #000000;
+}
+.scrollmeup_input_select_setting .scrollmeup_input_select_setting_details p{
+    margin: 5px 0 0 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: #72777C;
+}
+.scrollmeup_input_select_setting input[type="text"],
+.scrollmeup_input_select_setting input[type="number"],
+.scrollmeup_input_select_setting select{
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    max-width: 180px;
+    margin: 0;
+    padding: 4px 12px;
+    font-size: 14px;
+    color: #43454b;
+    background: #FFFFFF;
+    border: 1px solid #E4E4E6;
+    border-radius: 3px;
+    outline: none;
+    box-shadow: none;
+}
+.scrollmeup_input_select_setting input[type="text"]:focus,
+.scrollmeup_input_select_setting input[type="number"]:focus,
+.scrollmeup_input_select_setting select:focus{
+    color: #43454b;
+    border: 1px solid #000000;
+    background: #FFFFFF;
+    outline: none;
+    box-shadow: none;
+}
+.scrollmeup_input_select_setting select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: #FFFFFF url("../img/others/select_arrow.svg") no-repeat;
+    background-size: 10px;
+    background-position-x: calc(100% - 20px);
+    background-position-y: center;
+}
+.scrollmeup_input_select_setting select:focus{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: #FFFFFF url("../img/others/select_arrow.svg") no-repeat;
+    background-size: 10px;
+    background-position-x: calc(100% - 20px);
+    background-position-y: center;
+}
+.scrollmeup_input_select_setting input[type="color"] {
+    -webkit-appearance: none;
+    box-shadow: none !important;
+    padding: 0;
+    height: 36px;
+    width: 100%;
+    max-width: 180px;
+    margin: 0;
+    cursor: pointer;
+    outline: none;
+    border: 1px solid #e9ecef;
+}
+.scrollmeup_input_select_setting input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+.scrollmeup_input_select_setting input[type="color"]::-webkit-color-swatch {
+    border-color: transparent;
+    border-radius: 3px;
+}

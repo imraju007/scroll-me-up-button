@@ -1,0 +1,79 @@
+:root{
+    --scroll-me-up-btn-bg-color: #111111;
+    --scroll-me-up-btn-width: 64px;
+    --scroll-me-up-btn-height: 64px;
+    --scroll-me-up-btn-border-radius: 50%;
+    --scroll-me-up-btn-position: fixed;
+    --scroll-me-up-btn-margin-top: 40px;
+    --scroll-me-up-btn-margin-bottom: 40px;
+    --scroll-me-up-btn-margin-left: 40px;
+    --scroll-me-up-btn-margin-right: 40px;
+    --scroll-me-up-icon-color: #ffffff;
+    --scroll-me-up-icon-width: 40px;
+    --scroll-me-up-icon:  url(../img/icons/icon_1.svg);
+
+}
+
+
+.scroll_me_up_btn{
+    background: var(--scroll-me-up-btn-bg-color);
+    width: var(--scroll-me-up-btn-width);
+    height: var(--scroll-me-up-btn-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--scroll-me-up-btn-border-radius);
+    transition: all .3s;
+    position: fixed;
+    bottom: var(--scroll-me-up-btn-margin-bottom);
+    right: var(--scroll-me-up-btn-margin-right);
+    z-index: 99999;
+}
+
+.scroll_me_up_btn.scrollmeup_top_left,
+.scroll_me_up_btn.scrollmeup_top_right,
+.scroll_me_up_btn.scrollmeup_bottom_left,
+.scroll_me_up_btn.scrollmeup_bottom_right{
+    position: fixed;
+}
+.scroll_me_up_btn.scrollmeup_top_left{
+    top: var(--scroll-me-up-btn-margin-top);
+    left: var(--scroll-me-up-btn-margin-left);
+    bottom: unset;
+    right: unset;
+}
+.scroll_me_up_btn.scrollmeup_top_right{
+    top: var(--scroll-me-up-btn-margin-top);
+    right: var(--scroll-me-up-btn-margin-right);
+    bottom: unset;
+    left: unset;
+}
+.scroll_me_up_btn.scrollmeup_bottom_left{
+    bottom: var(--scroll-me-up-btn-margin-bottom);
+    left: var(--scroll-me-up-btn-margin-left);
+    top: unset;
+    right: unset;
+}
+.scroll_me_up_btn.scrollmeup_bottom_right{
+    bottom: var(--scroll-me-up-btn-margin-bottom);
+    right: var(--scroll-me-up-btn-margin-right);
+    top: unset;
+    left: unset;
+}
+
+.scroll_me_up_btn:hover {
+    cursor: pointer;
+    transform: translateY(-8px);
+    transition: all .3s;
+}
+
+
+.scroll_me_up_btn_icon{
+    display: block;
+    width: var(--scroll-me-up-icon-width);
+    height: inherit;
+    background-color: var(--scroll-me-up-icon-color);
+    -webkit-mask: var(--scroll-me-up-icon) no-repeat center;
+    mask: var(--scroll-me-up-icon) no-repeat center;
+}
+
