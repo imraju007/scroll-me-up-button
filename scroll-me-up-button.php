@@ -25,6 +25,7 @@ defined( 'SCROLLMEUP_JS_DIR' ) or define( 'SCROLLMEUP_JS_DIR', plugin_dir_url( _
 
 
 require_once SCROLLMEUP_PATH . 'includes/ScrollMeUpSettings.php';
+require_once SCROLLMEUP_PATH . 'includes/ScrollMeUpFields.php';
 require_once SCROLLMEUP_PATH . 'backend/class-scrollmeup-ajax.php';
 require_once SCROLLMEUP_PATH . 'backend/class-scrollmeup-admin.php';
 

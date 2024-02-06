@@ -8,9 +8,17 @@
     --scroll-me-up-btn-margin-bottom: 40px;
     --scroll-me-up-btn-margin-left: 40px;
     --scroll-me-up-btn-margin-right: 40px;
+    --scroll-me-up-btn-padding-x: 10px;
+    --scroll-me-up-btn-padding-y: 10px;
     --scroll-me-up-icon-color: #ffffff;
     --scroll-me-up-icon-width: 40px;
     --scroll-me-up-icon:  url(../img/icons/icon_1.svg);
+    --scroll-me-up-text-size: 14px;
+    --scroll-me-up-text-weight: 500;
+    --scroll-me-up-text-color: #ffffff;
+    --scroll-me-up-text-vertical: none;
+    --scroll-me-up-text-margin-top: 0px;
+    --scroll-me-up-text-margin-bottom: 0px;
 
 }
 
@@ -22,12 +30,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     border-radius: var(--scroll-me-up-btn-border-radius);
     transition: all .3s;
     position: fixed;
     bottom: var(--scroll-me-up-btn-margin-bottom);
     right: var(--scroll-me-up-btn-margin-right);
     z-index: 99999;
+    padding: var(--scroll-me-up-btn-padding-y) var(--scroll-me-up-btn-padding-x);
 }
 
 .scroll_me_up_btn.scrollmeup_top_left,
@@ -75,5 +85,14 @@
     background-color: var(--scroll-me-up-icon-color);
     -webkit-mask: var(--scroll-me-up-icon) no-repeat center;
     mask: var(--scroll-me-up-icon) no-repeat center;
+}
+
+.scroll_me_up_btn .scroll_me_up_btn_text{
+    font-size: var(--scroll-me-up-text-size);
+    font-weight: var(--scroll-me-up-text-weight);
+    color: var(--scroll-me-up-text-color);
+    transform: var(--scroll-me-up-text-vertical);
+    margin-top: var(--scroll-me-up-text-margin-top);
+    margin-bottom: var(--scroll-me-up-text-margin-bottom);
 }
 

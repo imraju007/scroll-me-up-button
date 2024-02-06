@@ -10,6 +10,7 @@ if (!class_exists('ScrollMeUpAdmin')) {
     {
 
         public $settings;
+        public $fields;
 
         public $data_settings;
         public $unique_id;
@@ -17,6 +18,7 @@ if (!class_exists('ScrollMeUpAdmin')) {
         public function __construct()
         {
             $this->settings = new ScrollMeUpSettings($this);
+            $this->fields = new ScrollMeUpFields();
             new ScrollMeUpAdminAjax($this);
 
             $this->data_settings = $this->settings->get_all_scrollmeup_settings();
@@ -41,6 +43,8 @@ if (!class_exists('ScrollMeUpAdmin')) {
 
                 wp_enqueue_script( 'scrollmeup-admin-main', SCROLLMEUP_JS_DIR.'admin_main.js', array('jquery'), SCROLLMEUP_VERSION );
                 wp_enqueue_media();
+	            $smu_data = array( 'scrollmeup_img_url' => SCROLLMEUP_IMG_DIR );
+	            wp_localize_script( 'scrollmeup-admin-main', 'scrollmeup_data', $smu_data );
             }
         }
 
