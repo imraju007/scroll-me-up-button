@@ -5,15 +5,17 @@
 
 <div class="scrollmeup_settings_with_switch_preview">
     <div class="scrollmeup_preview_section_block">
-        <div class="scrollmeup_switch_items scrollmeup_icon_design scrollmeup_ignore" data-switch_id="<?php echo esc_attr($settings["scrollmeup_icon_design"]) ?>">
+        <div class="scrollmeup_switch_items scrollmeup_icon_design scrollmeup_ignore">
             <?php
-            $number_of_image = 17;
-            for($i = 1; $i <= $number_of_image ; $i++ ){
-                ?>
-                <div class="scrollmeup_switch_item  <?php echo esc_attr($settings["scrollmeup_icon_design"] == "icon_".$i ? "active" : "") ?>" data-switch_id="<?php echo esc_attr('icon_'.$i); ?>">
-                    <img width="55px" src="<?php echo esc_url(SCROLLMEUP_IMG_DIR . "icons/icon_".$i.".svg") ?>">
-                </div>
-            <?php
+            $icons = $this->settings->get_all_icons();
+            if(sizeof($icons) > 0){
+                foreach ($icons as $icon){
+	                ?>
+                    <div class="scrollmeup_switch_item  <?php echo esc_attr($settings["scrollmeup_icon_design"] == $icon['name'] ? "active" : "") ?>" data-switch_id="<?php echo esc_attr($icon['name']); ?>">
+                        <img width="55px" src="<?php echo esc_url($icon['url']) ?>">
+                    </div>
+	                <?php
+                }
             }
             ?>
 

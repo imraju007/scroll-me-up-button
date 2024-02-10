@@ -12,6 +12,7 @@
     --scroll-me-up-btn-padding-y: 10px;
     --scroll-me-up-icon-color: #ffffff;
     --scroll-me-up-icon-width: 40px;
+    --scroll-me-up-icon-height: 40px;
     --scroll-me-up-icon:  url(../img/icons/icon_1.svg);
     --scroll-me-up-text-size: 14px;
     --scroll-me-up-text-weight: 500;
@@ -81,7 +82,7 @@
 .scroll_me_up_btn_icon{
     display: block;
     width: var(--scroll-me-up-icon-width);
-    height: inherit;
+    height: var(--scroll-me-up-icon-height);
     background-color: var(--scroll-me-up-icon-color);
     -webkit-mask: var(--scroll-me-up-icon) no-repeat center;
     mask: var(--scroll-me-up-icon) no-repeat center;

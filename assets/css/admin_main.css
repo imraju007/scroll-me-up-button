@@ -175,12 +175,12 @@
     display: flex;
     gap: 10px;
     position: sticky;
-    top: 50px;
+    /*top: 50px;*/
     z-index: 10;
 }
 .scrollmeup_switch_preview_container{
     width: 350px;
-    height: inherit;
+    height: 250px;
     background: #F9FAFB;
     border: 1px solid #E8EBEE;
     display: flex;
@@ -197,6 +197,7 @@
     flex-direction: column;
     border-radius: 50%;
     transition: all .3s;
+    overflow: hidden;
     z-index: 99999;
     padding: 10px 10px;
     margin-bottom: 40px;
@@ -213,7 +214,7 @@
 .scrollmeup_switch_preview .scrollmeup_switch_preview_icon{
     display: block;
     width: 35px;
-    height: inherit;
+    height: 35px;
     background-color: #ffffff;
 }
 .scrollmeup_switch_preview  .scrollmeup_switch_preview_text{
@@ -310,6 +311,23 @@
     border-radius: 3px;
 }
 
-.scrollmeup_text_settings_sections.deactive{
-    display: none;
+/*Notifications*/
+.scrollmeup_notification {
+    position: fixed;
+    right: -200px;
+    top: 50px;
+    width: 200px;
+    height: 35px;
+    background: #FFE100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 8px 0 0 8px;
+    transition: right 1s ease;
+}
+
+.scrollmeup_notification.show {
+    right: 0;
 }

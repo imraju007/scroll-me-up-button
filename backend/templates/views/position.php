@@ -18,12 +18,13 @@
 
     <?php
 
-    echo $this->fields->get_separator([
+    echo $this->fields->get_separator( [
+	    "class"     => "scrollmeup_switch_margin_top",
 	    "condition" => [
-		    "value" => $settings["scrollmeup_switch_position"],
+		    "value"  => $settings["scrollmeup_switch_position"],
 		    "needle" => "top"
 	    ]
-    ]);
+    ] );
     echo $this->fields->generate_input_field( [
 	    "class_name"    => "scrollmeup_switch_margin_top",
 	    "type"          => "number",
@@ -37,6 +38,7 @@
     ] );
 
     echo $this->fields->get_separator([
+	    "class"     => "scrollmeup_switch_margin_bottom",
 	    "condition" => [
 		    "value" => $settings["scrollmeup_switch_position"],
 		    "needle" => "bottom"
@@ -55,6 +57,7 @@
     ] );
 
     echo $this->fields->get_separator([
+	    "class"     => "scrollmeup_switch_margin_left",
 	    "condition" => [
 		    "value" => $settings["scrollmeup_switch_position"],
 		    "needle" => "left"
@@ -73,6 +76,7 @@
     ] );
 
     echo $this->fields->get_separator([
+	    "class"     => "scrollmeup_switch_margin_right",
 	    "condition" => [
 		    "value" => $settings["scrollmeup_switch_position"],
 		    "needle" => "right"

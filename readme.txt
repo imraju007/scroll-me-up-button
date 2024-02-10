@@ -46,4 +46,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 == Changelog ==
 
 = 1.0.0 =
-This is the initial release of Scroll Me up Button.
+-This is the initial release of Scroll Me up Button.
+
+= 1.0.1 =
+-Added Icon With Text Feature
+-Added Preview in Dashboard
+-Added more than 25+ Icons

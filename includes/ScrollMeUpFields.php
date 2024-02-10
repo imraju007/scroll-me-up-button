@@ -7,44 +7,59 @@ if ( ! defined( 'WPINC' ) ) {
 
 if ( ! class_exists( 'ScrollMeUpFields' ) ) {
 	class ScrollMeUpFields {
-		public function generate_input_field($data = []){
-			ob_start();
-            ?>
-            <div class="scrollmeup_input_select_setting <?php echo esc_attr($data['class_name']); ?>" style="<?php echo isset($data['condition'])? esc_attr(strpos($data['condition']['value'], $data['condition']['needle']) !== false ? "" : "display: none;"):"" ?>">
-                <div class="scrollmeup_input_select_setting_details">
-                    <h4><?php echo esc_attr($data['label']); ?></h4>
-                    <p><?php echo esc_attr($data['description']); ?></p>
-                </div>
-                <input type="<?php echo esc_attr($data['type']); ?>" <?php echo esc_attr(isset($data['data_default'])?"data-default=".$data['data_default']:""); ?> value="<?php echo esc_attr($data['default_value']); ?>">
-            </div>
-			<?php
-            $data = ob_get_clean();
-            return $data;
-		}
+		private $input_fields = [];
 
-		public function get_separator($data = []) {
+		public function generate_input_field( $data = [] ) {
+			array_push( $this->input_fields, $data['class_name'] );
 			ob_start();
 			?>
-            <div class="scrollmeup_section_block_separator" style="<?php echo isset($data['condition']) ? esc_attr(strpos($data['condition']['value'], $data['condition']['needle']) !== false ? "" : "display: none;") : ""; ?>"></div>
+            <div class="scrollmeup_input_select_setting <?php echo esc_attr( $data['class_name'] ); ?>"
+                 style="<?php echo isset( $data['condition'] ) ? esc_attr( strpos( $data['condition']['value'], $data['condition']['needle'] ) !== false ? "" : "display: none;" ) : "" ?>">
+                <div class="scrollmeup_input_select_setting_details">
+                    <h4><?php echo esc_attr( $data['label'] ); ?></h4>
+                    <p><?php echo esc_attr( $data['description'] ); ?></p>
+                </div>
+                <input type="<?php echo esc_attr( $data['type'] ); ?>" <?php echo esc_attr( isset( $data['data_default'] ) ? "data-default=" . $data['data_default'] : "" ); ?>
+                       value="<?php echo esc_attr( $data['default_value'] ); ?>">
+            </div>
 			<?php
 			$data = ob_get_clean();
+
 			return $data;
 		}
 
+		public function get_separator( $data = [] ) {
+			ob_start();
+			?>
+            <div class="scrollmeup_section_block_separator <?php echo isset( $data['class'] ) ? $data['class'] . '_separator' : ''; ?>"
+                 style="<?php echo isset( $data['condition'] ) ? esc_attr( strpos( $data['condition']['value'], $data['condition']['needle'] ) !== false ? "" : "display: none;" ) : ""; ?>"></div>
+			<?php
+			$data = ob_get_clean();
 
-		public function generate_checkbox($data = []) {
-	        ob_start();
-	        ?>
-            <div class="scrollmeup_checkbox_setting <?php echo esc_attr($data['class_name']); ?>">
-                <label class="scrollmeup_checkbox_item scrollmeup_ignore"><input type="checkbox" <?php echo esc_attr($data["default_value"] == "1" ? "checked" : "") ?> <?php echo isset($data['onChange'])?"onchange='".$data['onChange']."'":"" ?>><span class="scrollmeup_checkbox_checkmark"></span></label>
+			return $data;
+		}
+
+		public function generate_checkbox( $data = [] ) {
+			array_push( $this->input_fields, $data['class_name'] );
+			ob_start();
+			?>
+            <div class="scrollmeup_checkbox_setting <?php echo esc_attr( $data['class_name'] ); ?>">
+                <label class="scrollmeup_checkbox_item scrollmeup_ignore"><input
+                            type="checkbox" <?php echo esc_attr( $data["default_value"] == "1" ? "checked" : "" ) ?> <?php echo isset( $data['onChange'] ) ? "onchange='" . $data['onChange'] . "'" : "" ?>><span
+                            class="scrollmeup_checkbox_checkmark"></span></label>
                 <div class="scrollmeup_checkbox_setting_details">
-                    <h4><?php echo esc_attr($data['label']); ?></h4>
-                    <p><?php echo esc_attr($data['description']); ?></p>
+                    <h4><?php echo esc_attr( $data['label'] ); ?></h4>
+                    <p><?php echo esc_attr( $data['description'] ); ?></p>
                 </div>
             </div>
-	        <?php
-	        $data = ob_get_clean();
-	        return $data;
-        }
+			<?php
+			$data = ob_get_clean();
+
+			return $data;
+		}
+
+		public function get_input_fields() {
+			return $this->input_fields;
+		}
 	}
 }

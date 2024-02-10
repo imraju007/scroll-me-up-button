@@ -1,8 +1,8 @@
 <style>
     :root {
         --scroll-me-up-btn-bg-color:        <?php echo esc_attr($this->data_settings["scrollmeup_switch_bg"]); ?>;
-        --scroll-me-up-btn-width:           <?php if($this->data_settings["scrollmeup_text_switch"] == "0"){echo esc_attr($this->data_settings["scrollmeup_switch_width_height"]).'px';}else{ echo esc_attr("fit-content");}  ?>;
-        --scroll-me-up-btn-height:          <?php echo esc_attr($this->data_settings["scrollmeup_switch_width_height"]); ?>px;
+        --scroll-me-up-btn-height:           <?php if($this->data_settings["scrollmeup_text_switch"] == "0"){echo esc_attr($this->data_settings["scrollmeup_switch_width_height"]).'px';}else{ echo esc_attr("fit-content");}  ?>;
+        --scroll-me-up-btn-width:          <?php echo esc_attr($this->data_settings["scrollmeup_switch_width_height"]); ?>px;
         --scroll-me-up-btn-border-radius:   <?php echo esc_attr($this->data_settings["scrollmeup_switch_border_radius"]); ?>%;
         --scroll-me-up-btn-margin-top:      <?php echo esc_attr($this->data_settings["scrollmeup_switch_margin_top"]); ?>px;
         --scroll-me-up-btn-margin-bottom:   <?php echo esc_attr($this->data_settings["scrollmeup_switch_margin_bottom"]); ?>px;
@@ -12,7 +12,8 @@
         --scroll-me-up-btn-padding-y:       <?php echo esc_attr($this->data_settings["scrollmeup_switch_padding_y"]); ?>px;
         --scroll-me-up-icon-color:          <?php echo esc_attr($this->data_settings["scrollmeup_switch_icon_color"]); ?>;
         --scroll-me-up-icon-width:          <?php echo esc_attr($this->data_settings["scrollmeup_switch_icon_width"]); ?>px;
-        --scroll-me-up-icon: url(../img/icons/<?php echo esc_attr($this->data_settings["scrollmeup_icon_design"]); ?>.svg);
+        --scroll-me-up-icon-height:          <?php echo esc_attr($this->data_settings["scrollmeup_switch_icon_width"]); ?>px;
+        --scroll-me-up-icon: url(<?php echo esc_attr(SCROLLMEUP_IMG_DIR."icons/".$this->data_settings["scrollmeup_icon_design"]); ?>.svg);
         --scroll-me-up-text-size:           <?php echo esc_attr($this->data_settings["scrollmeup_text_font_size"]); ?>px;
         --scroll-me-up-text-weight:         <?php echo esc_attr($this->data_settings["scrollmeup_text_font_weight"]); ?>;
         --scroll-me-up-text-color:          <?php echo esc_attr($this->data_settings["scrollmeup_text_font_color"]); ?>;

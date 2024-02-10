@@ -31,9 +31,6 @@ $settings = $this->settings->get_all_scrollmeup_settings();
         <?php include SCROLLMEUP_PATH . "backend/templates/views/advance.php"; ?>
 
 
-
-
-
     </div>
 
 </div>

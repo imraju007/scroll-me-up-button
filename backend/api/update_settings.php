@@ -1,51 +1,46 @@
 <?php
 
-$result = array();
+$result = [];
 
 /* Check if user has admin capabilities */
 if ( current_user_can( 'manage_options' ) ) {
 
 	if ( isset( $_REQUEST['scrollmeup_enable_switch'] ) ) {
+		$input_fields = [
+			'scrollmeup_enable_switch',
+			'scrollmeup_icon_design',
+			'scrollmeup_text_switch',
+			'scrollmeup_switch_text',
+			'scrollmeup_text_font_size',
+			'scrollmeup_text_font_weight',
+			'scrollmeup_text_font_color',
+			'scrollmeup_text_vertical',
+			'scrollmeup_text_margin_top',
+			'scrollmeup_text_margin_bottom',
+			'scrollmeup_switch_position',
+			'scrollmeup_switch_margin_top',
+			'scrollmeup_switch_margin_bottom',
+			'scrollmeup_switch_margin_left',
+			'scrollmeup_switch_margin_right',
+			'scrollmeup_switch_padding_x',
+			'scrollmeup_switch_padding_y',
+			'scrollmeup_switch_width_height',
+			'scrollmeup_switch_border_radius',
+			'scrollmeup_switch_icon_width',
+			'scrollmeup_switch_bg',
+			'scrollmeup_switch_icon_color'
+		];
+		foreach ( $input_fields as $input_field ) {
+			$this->base_admin->settings->process_request_data( $_REQUEST, $input_field );
+		}
 
-		/* Control */
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_enable_switch" );
-
-		/* Icon */
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_icon_design" );
-
-		/* Text */
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_text_switch" );
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_switch_text" );
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_text_font_size" );
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_text_font_weight" );
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_text_font_color" );
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_text_vertical" );
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_text_margin_top" );
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_text_margin_bottom" );
-
-		/* Position */
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_switch_position" );
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_switch_margin_top" );
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_switch_margin_bottom" );
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_switch_margin_left" );
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_switch_margin_right" );
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_switch_padding_x" );
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_switch_padding_y" );
-
-		/* Advanced */
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_switch_width_height" );
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_switch_border_radius" );
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_switch_icon_width" );
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_switch_bg" );
-		$this->base_admin->settings->process_request_data( $_REQUEST, "scrollmeup_switch_icon_color" );
-
-		$result = array( "status" => "true" );
+		$result = [ "status" => "true", "msg" => "Done" ];
 
 	} else {
-		$result = array( "status" => 'false1' );
+		$result = [ "status" => 'false', "msg" => "Invalid Input" ];
 	}
 } else {
-	$result = array( "status" => 'false' );
+	$result = [ "status" => 'false', "msg" => "Invalid User" ];
 }
 
 echo json_encode( $result, JSON_UNESCAPED_UNICODE );

@@ -10,7 +10,7 @@ function scrollmeup_save() {
         'scrollmeup_enable_switch':         jQuery(".scrollmeup_enable_switch input[type='checkbox']:checked").length > 0 ? "1" : "0",
 
         /* Icon */
-        'scrollmeup_icon_design':           jQuery(".scrollmeup_icon_design").attr("data-switch_id"),
+        'scrollmeup_icon_design':           jQuery(".scrollmeup_icon_design .active").attr("data-switch_id"),
 
         /* Text */
         'scrollmeup_text_switch':           jQuery(".scrollmeup_text_switch input[type='checkbox']:checked").length > 0 ? "1" : "0",
@@ -48,218 +48,296 @@ function scrollmeup_save() {
             var obj = JSON.parse(data);
             if (obj.status === "true") {
                 jQuery('.scrollmeup_body_header_save_btn').text('SAVE CHANGES').prop('disabled', false);
+                notification_handler({parent: '.scrollmeup_main', text: obj.msg, time: 3000});
             }
         }
     });
 }
 
-jQuery(document).ready(function($) {
-    $(".scrollmeup_switch_item").on('click ', function(){
-        if(jQuery(this).prev().prop('nodeName')){
-            console.log(jQuery(this).prev().prop('nodeName'))
-        }else{
-            console.log(jQuery(this).attr('type'))
-        }
+function notification_handler(data = {}) {
+    jQuery(data.parent).append('<div class="scrollmeup_notification">' + data.text + '</div>');
+    jQuery('.scrollmeup_notification').addClass('show');
+    setTimeout(function () {
+        jQuery('.scrollmeup_notification').removeClass('show');
+    }, data.time);
+    setTimeout(function () {
+        jQuery('.scrollmeup_main .scrollmeup_notification').remove();
+    }, data.time*2);
 
+}
+
+jQuery(document).ready(function($) {
+    init();
+
+    $(".scrollmeup_switch_item").on('click ', function(){
         jQuery(".scrollmeup_switch_items .scrollmeup_switch_item").removeClass("active");
         jQuery(this).addClass("active");
         process_preview_image(this, jQuery(this).attr('data-switch_id'))
     });
 
     $(".scrollmeup_body select").on('change', function(event){
-        if(jQuery(this).prev().prop('nodeName')){
-            console.log(jQuery(this).prev().prop('nodeName'))
-        }else{
-            console.log(jQuery(this).attr('type'))
-        }
-        if('scrollmeup_switch_position' === event.target.parentNode.classList[1]){
-            var position = event.target.value;
-            if(position === "top_right"){
-                jQuery(".scrollmeup_switch_margin_top").show().prev().show()
-                jQuery(".scrollmeup_switch_margin_right").show().prev().show()
-                jQuery(".scrollmeup_switch_margin_bottom").hide().prev().hide()
-                jQuery(".scrollmeup_switch_margin_left").hide().prev().hide()
-            }else if(position === "top_left"){
-                jQuery(".scrollmeup_switch_margin_top").show().prev().show()
-                jQuery(".scrollmeup_switch_margin_left").show().prev().show()
-                jQuery(".scrollmeup_switch_margin_bottom").hide().prev().hide()
-                jQuery(".scrollmeup_switch_margin_right").hide().prev().hide()
-            }else if(position === "bottom_right"){
-                jQuery(".scrollmeup_switch_margin_bottom").show().prev().show()
-                jQuery(".scrollmeup_switch_margin_right").show().prev().show()
-                jQuery(".scrollmeup_switch_margin_top").hide().prev().hide()
-                jQuery(".scrollmeup_switch_margin_left").hide().prev().hide()
-            }else if(position === "bottom_left"){
-                jQuery(".scrollmeup_switch_margin_bottom").show().prev().show()
-                jQuery(".scrollmeup_switch_margin_left").show().prev().show()
-                jQuery(".scrollmeup_switch_margin_top").hide().prev().hide()
-                jQuery(".scrollmeup_switch_margin_right").hide().prev().hide()
-            }
-            jQuery(".scrollmeup_switch_margin_top input").val("40")
-            jQuery(".scrollmeup_switch_margin_right input").val("40")
-            jQuery(".scrollmeup_switch_margin_bottom input").val("40")
-            jQuery(".scrollmeup_switch_margin_left input").val("40")
-        }
-        process_preview_select(event.target.parentNode.classList[1], event.target.value);
+        process_preview_input(event.target.parentNode.classList[1], event.target.value);
     });
-    // $('.scrollmeup_body :checkbox').on('change', function() {
-    //     if(jQuery(this).prev().prop('nodeName')){
-    //         console.log(jQuery(this).prev().prop('nodeName'))
-    //     }else{
-    //         console.log(jQuery(this).attr('type'))
-    //     }
-    //     if('scrollmeup_text_switch' === this.parentNode.parentNode.classList[1]){
-    //         if (this.checked) {
-    //             jQuery(".scrollmeup_text_settings_sections").removeClass("deactive");
-    //             jQuery(".scrollmeup_switch_preview_text").css('display', 'block');
-    //         } else {
-    //             jQuery(".scrollmeup_text_settings_sections").addClass("deactive");
-    //             jQuery(".scrollmeup_switch_preview_text").css('display', 'none');
-    //         }
-    //     }
-    //     process_preview_checkbox(this.parentNode.parentNode.classList[1], this.checked);
-    // });
+
     $(".scrollmeup_body input").on('input', function(event) {
-        if(jQuery(this).prev().prop('nodeName')){
-            console.log(jQuery(this).prev().prop('nodeName'))
-        }else{
-            console.log(jQuery(this).attr('type'))
-        }
         if('checkbox' === jQuery(this).attr('type')){
-            if('scrollmeup_text_switch' === this.parentNode.parentNode.classList[1]){
-                if (this.checked) {
-                    jQuery(".scrollmeup_text_settings_sections").removeClass("deactive");
-                    jQuery(".scrollmeup_switch_preview_text").css('display', 'block');
-                } else {
-                    jQuery(".scrollmeup_text_settings_sections").addClass("deactive");
-                    jQuery(".scrollmeup_switch_preview_text").css('display', 'none');
-                }
-            }
-            process_preview_checkbox(this.parentNode.parentNode.classList[1], this.checked);
+            process_preview_input(this.parentNode.parentNode.classList[1], this.checked? "1":"0");
         }
         process_preview_input(event.target.parentNode.classList[1], event.target.value)
     });
 
-    function process_preview_input(field, value) {
-        const preview_container = $('.scrollmeup_switch_preview_container');
-        const preview_item_container = $('.scrollmeup_switch_preview');
-        const preview_icon = $('.scrollmeup_switch_preview_icon');
-        const preview_text = $('.scrollmeup_switch_preview_text');
-        switch (field) {
-            case 'scrollmeup_switch_text':
-                preview_text.text(value)
-                break;
-            case 'scrollmeup_text_font_size':
-                preview_text.css('font-size', value + 'px');
-                break;
-            case 'scrollmeup_text_font_weight':
-                preview_text.css('font-weight', value);
-                break;
-            case 'scrollmeup_text_font_color':
-                preview_text.css('color', value);
-                break;
-            case 'scrollmeup_text_margin_top':
-                preview_text.css('margin-top', value + 'px');
-                break;
-            case 'scrollmeup_text_margin_bottom':
-                preview_text.css('margin-bottom', value + 'px');
-                break;
-            case 'scrollmeup_switch_margin_bottom':
-                preview_item_container.css('margin-bottom', value + 'px');
-                break;
-            case 'scrollmeup_switch_margin_top':
-                preview_item_container.css('margin-top', value + 'px');
-                break;
-            case 'scrollmeup_switch_margin_left':
-                preview_item_container.css('margin-left', value + 'px');
-                break;
-            case 'scrollmeup_switch_margin_right':
-                preview_item_container.css('margin-right', value + 'px');
-                break;
-            case 'scrollmeup_switch_padding_x':
-                preview_item_container.css('padding-left', value + 'px');
-                preview_item_container.css('padding-right', value + 'px');
-                break;
-            case 'scrollmeup_switch_padding_y':
-                preview_item_container.css('padding-top', value + 'px');
-                preview_item_container.css('padding-bottom', value + 'px');
-                break;
-            case 'scrollmeup_switch_width_height':
-                preview_item_container.css('height', value + 'px');
-                preview_item_container.css('width', value + 'px');
-                break;
-            case 'scrollmeup_switch_border_radius':
-                preview_item_container.css('border-radius', value + '%');
-                break;
-            case 'scrollmeup_switch_icon_width':
-                preview_icon.css('width', value + 'px');
-                break;
-            case 'scrollmeup_switch_bg':
-                preview_item_container.css('background', value)
-                break;
-            case 'scrollmeup_switch_icon_color':
-                preview_icon.css('background-color', value)
-                break;
-            default:
-                break;
+    const properties = {
+        'scrollmeup_text_switch': {
+            type: 'choice',
+            choice : {
+                '1': {
+                    type : 'style',
+                    values: [
+                        {selector: '.scrollmeup_switch_preview_text', cssProperty: 'display', helper:'block'},
+                        {selector: '.scrollmeup_text_settings_sections', cssProperty: 'display', helper:'block'},
+                        {selector: '.scrollmeup_switch_preview', cssProperty: 'height', helper:'fit-content'}
+                    ]
+                },
+                '0': {
+                    type : 'style',
+                    values: [
+                        {selector: '.scrollmeup_switch_preview_text',cssProperty: 'display', helper:'none'},
+                        {selector: '.scrollmeup_text_settings_sections', cssProperty: 'display', helper:'none'}
+                    ]
+                },
+            }
+        },
+        'scrollmeup_switch_text': {
+            type: 'text',
+            selector: '.scrollmeup_switch_preview_text',
+            values : []
+        },
+        'scrollmeup_text_font_size': {
+            type: 'style',
+            values : [{selector: '.scrollmeup_switch_preview_text', cssProperty: 'font-size', helper: 'px'}]
+        },
+        'scrollmeup_text_font_weight': {
+            type: 'style',
+            values : [{selector: '.scrollmeup_switch_preview_text',cssProperty: 'font-weight', helper: ''}]
+        },
+        'scrollmeup_text_font_color': {
+            type: 'style',
+            values : [{selector: '.scrollmeup_switch_preview_text',cssProperty: 'color', helper: ''}]
+        },
+        'scrollmeup_text_margin_top': {
+            type: 'style',
+            values : [{selector: '.scrollmeup_switch_preview_text', cssProperty: 'margin-top', helper:'px'}]
+        },
+        'scrollmeup_text_margin_bottom': {
+            type: 'style',
+            values : [{selector: '.scrollmeup_switch_preview_text', cssProperty: 'margin-bottom', helper:'px'}]
+        },
+        'scrollmeup_switch_margin_top': {
+            type: 'style',
+            values : [{selector: '.scrollmeup_switch_preview', cssProperty: 'margin-top', helper:'px'}]
+        },
+        'scrollmeup_switch_margin_left': {
+            type: 'style',
+            values : [{selector: '.scrollmeup_switch_preview', cssProperty: 'margin-left', helper:'px'}]
+        },
+        'scrollmeup_switch_margin_bottom': {
+            type: 'style',
+            values : [{selector: '.scrollmeup_switch_preview', cssProperty: 'margin-bottom', helper:'px'}]
+        },
+        'scrollmeup_switch_margin_right': {
+            type: 'style',
+            values : [{selector: '.scrollmeup_switch_preview', cssProperty: 'margin-right', helper:'px'}]
+        },
+        'scrollmeup_switch_padding_x': {
+            type: 'style',
+            values : [{selector: '.scrollmeup_switch_preview', cssProperty: 'padding-left', helper:'px'},{selector: '.scrollmeup_switch_preview', cssProperty: 'padding-right', helper:'px'}]
+        },
+        'scrollmeup_switch_padding_y': {
+            type: 'style',
+            values : [{selector: '.scrollmeup_switch_preview', cssProperty: 'padding-top', helper:'px'},{selector: '.scrollmeup_switch_preview', cssProperty: 'padding-bottom', helper:'px'}]
+        },
+        'scrollmeup_switch_width_height': {
+            type: 'style',
+            values : [{selector: '.scrollmeup_switch_preview', cssProperty: 'height', helper:'px'},{selector: '.scrollmeup_switch_preview', cssProperty: 'width', helper:'px'}]
+        },
+        'scrollmeup_switch_border_radius': {
+            type: 'style',
+            values : [{selector: '.scrollmeup_switch_preview', cssProperty: 'border-radius', helper:'%'}]
+        },
+        'scrollmeup_switch_icon_width': {
+            type: 'style',
+            values : [{selector: '.scrollmeup_switch_preview_icon', cssProperty: 'width', helper:'px'}, {selector: '.scrollmeup_switch_preview_icon', cssProperty: 'height', helper:'px'}]
+        },
+        'scrollmeup_switch_bg': {
+            type: 'style',
+            values : [{selector: '.scrollmeup_switch_preview', cssProperty: 'background', helper:''}]
+        },
+        'scrollmeup_switch_icon_color': {
+            type: 'style',
+            values : [{selector: '.scrollmeup_switch_preview_icon', cssProperty: 'background-color', helper:''}]
+        },
+        'scrollmeup_switch_position': {
+            type: 'choice',
+            choice : {
+                'bottom_left': {
+                    type : 'style',
+                    values: [
+                        {selector: '.scrollmeup_switch_preview_container', cssProperty: 'align-items', helper: 'end'},
+                        {selector: '.scrollmeup_switch_preview_container', cssProperty: 'justify-content', helper: 'start'},
+                        {selector: '.scrollmeup_switch_margin_bottom_separator', cssProperty: 'display', helper: 'block'},
+                        {selector: '.scrollmeup_switch_margin_bottom', cssProperty: 'display', helper: 'flex'},
+                        {selector: '.scrollmeup_switch_margin_left_separator', cssProperty: 'display', helper: 'block'},
+                        {selector: '.scrollmeup_switch_margin_left', cssProperty: 'display', helper: 'flex'},
+                        {selector: '.scrollmeup_switch_margin_top_separator', cssProperty: 'display', helper: 'none'},
+                        {selector: '.scrollmeup_switch_margin_top', cssProperty: 'display', helper: 'none'},
+                        {selector: '.scrollmeup_switch_margin_right_separator', cssProperty: 'display', helper: 'none'},
+                        {selector: '.scrollmeup_switch_margin_right', cssProperty: 'display', helper: 'none'}
+                    ]
+                },
+                'bottom_right': {
+                    type : 'style',
+                    values: [
+                        {selector: '.scrollmeup_switch_preview_container', cssProperty: 'align-items', helper: 'end'},
+                        {selector: '.scrollmeup_switch_preview_container', cssProperty: 'justify-content', helper: 'end'},
+                        {selector: '.scrollmeup_switch_margin_bottom_separator', cssProperty: 'display', helper: 'block'},
+                        {selector: '.scrollmeup_switch_margin_bottom', cssProperty: 'display', helper: 'flex'},
+                        {selector: '.scrollmeup_switch_margin_left_separator', cssProperty: 'display', helper: 'none'},
+                        {selector: '.scrollmeup_switch_margin_left', cssProperty: 'display', helper: 'none'},
+                        {selector: '.scrollmeup_switch_margin_top_separator', cssProperty: 'display', helper: 'none'},
+                        {selector: '.scrollmeup_switch_margin_top', cssProperty: 'display', helper: 'none'},
+                        {selector: '.scrollmeup_switch_margin_right_separator', cssProperty: 'display', helper: 'block'},
+                        {selector: '.scrollmeup_switch_margin_right', cssProperty: 'display', helper: 'flex'}
+                    ]
+                },
+                'top_right': {
+                    type : 'style',
+                    values: [
+                        {selector: '.scrollmeup_switch_preview_container', cssProperty: 'align-items', helper: 'start'},
+                        {selector: '.scrollmeup_switch_preview_container', cssProperty: 'justify-content', helper: 'end'},
+                        {selector: '.scrollmeup_switch_margin_bottom_separator', cssProperty: 'display', helper: 'none'},
+                        {selector: '.scrollmeup_switch_margin_bottom', cssProperty: 'display', helper: 'none'},
+                        {selector: '.scrollmeup_switch_margin_left_separator', cssProperty: 'display', helper: 'none'},
+                        {selector: '.scrollmeup_switch_margin_left', cssProperty: 'display', helper: 'none'},
+                        {selector: '.scrollmeup_switch_margin_top_separator', cssProperty: 'display', helper: 'block'},
+                        {selector: '.scrollmeup_switch_margin_top', cssProperty: 'display', helper: 'flex'},
+                        {selector: '.scrollmeup_switch_margin_right_separator', cssProperty: 'display', helper: 'block'},
+                        {selector: '.scrollmeup_switch_margin_right', cssProperty: 'display', helper: 'flex'}
+                    ]
+                },
+                'top_left': {
+                    type : 'style',
+                    values: [
+                        {selector: '.scrollmeup_switch_preview_container', cssProperty: 'align-items', helper: 'start'},
+                        {selector: '.scrollmeup_switch_preview_container', cssProperty: 'justify-content', helper: 'start'},
+                        {selector: '.scrollmeup_switch_margin_bottom_separator', cssProperty: 'display', helper: 'none'},
+                        {selector: '.scrollmeup_switch_margin_bottom', cssProperty: 'display', helper: 'none'},
+                        {selector: '.scrollmeup_switch_margin_left_separator', cssProperty: 'display', helper: 'block'},
+                        {selector: '.scrollmeup_switch_margin_left', cssProperty: 'display', helper: 'flex'},
+                        {selector: '.scrollmeup_switch_margin_top_separator', cssProperty: 'display', helper: 'block'},
+                        {selector: '.scrollmeup_switch_margin_top', cssProperty: 'display', helper: 'flex'},
+                        {selector: '.scrollmeup_switch_margin_right_separator', cssProperty: 'display', helper: 'none'},
+                        {selector: '.scrollmeup_switch_margin_right', cssProperty: 'display', helper: 'none'}
+                    ]
+                }
+            }
+        },
+        'scrollmeup_text_vertical': {
+            type: 'choice',
+            choice : {
+                '1': {
+                    type : 'style',
+                    values: [{selector: '.scrollmeup_switch_preview_text', cssProperty: 'transform', helper:'rotate(90deg)'}]
+                },
+                '0': {
+                    type : 'style',
+                    values: [{selector: '.scrollmeup_switch_preview_text', cssProperty: 'transform', helper:'none'}]
+                },
+            }
+        },
+        'scrollmeup_enable_switch': {
+            type: 'choice',
+            choice : {
+                '1': {
+                    type : 'style',
+                    values: [{selector: '.scrollmeup_switch_preview', cssProperty: 'display', helper:'flex'}]
+                },
+                '0': {
+                    type : 'style',
+                    values: [{selector: '.scrollmeup_switch_preview', cssProperty: 'display', helper:'none'}]
+                },
+            }
+        },
+        'scrollmeup_icon_design': {
+            type: 'icon',
+            values: []
         }
+
     }
-    function process_preview_select(field, selector) {
-        const preview_container = $('.scrollmeup_switch_preview_container');
-        if('scrollmeup_switch_position' === field){
-            switch (selector) {
-                case 'bottom_left':
-                    preview_container.css('align-items', 'end');
-                    preview_container.css('justify-content', 'start');
-                    break;
-                case 'bottom_right':
-                    preview_container.css('align-items', 'end');
-                    preview_container.css('justify-content', 'end');
-                    break;
-                case 'top_right':
-                    preview_container.css('align-items', 'start');
-                    preview_container.css('justify-content', 'end');
-                    break;
-                case 'top_left':
-                    preview_container.css('align-items', 'start');
-                    preview_container.css('justify-content', 'start');
-                    break;
-                default:
-                    break;
+    function process_preview_input(selector, choice_value) {
+        if (properties[selector]) {
+            if('text' === properties[selector].type){
+                $(properties[selector].selector).text(choice_value)
+            }
+            if('style' === properties[selector].type){
+                properties[selector].values.forEach(value => {
+                    $(value.selector).css(value.cssProperty, choice_value + value.helper);
+                });
+            }
+            if('choice' === properties[selector].type){
+                if('style' === properties[selector].choice[choice_value].type){
+                    properties[selector].choice[choice_value].values.forEach(value => {
+                        $(value.selector).css(value.cssProperty, value.helper);
+                    });
+                }
+
             }
         }
-
-    }
-    function process_preview_checkbox(field, selector) {
-        const preview_item_container = $('.scrollmeup_switch_preview');
-        const preview_text = $('.scrollmeup_switch_preview_text');
-        switch (field) {
-            case 'scrollmeup_text_vertical':
-                if(selector){
-                    preview_text.css('transform', 'rotate(90deg)');
-                }else{
-                    preview_text.css('transform', 'none');
-                }
-                break;
-            case 'scrollmeup_enable_switch':
-                if(selector){
-                    preview_item_container.css('display', 'flex');
-                }else{
-                    preview_item_container.css('display', 'none');
-                }
-                break;
-            default:
-                break;
-        }
-
     }
     function process_preview_image(field, value) {
         const preview_icon = $('.scrollmeup_switch_preview_icon');
         preview_icon.css("-webkit-mask", "url(" + scrollmeup_data.scrollmeup_img_url + "icons/" + value + ".svg) no-repeat center");
         preview_icon.css("mask", "url(" + scrollmeup_data.scrollmeup_img_url + "icons/" + value + ".svg) no-repeat center");
+    }
+
+    function process_preview_from_saved_data(data = {}){
+        if('icon' === properties[data.field].type){
+            process_preview_image(data.field, data.value);
+        }else{
+            process_preview_input(data.field, data.value);
+        }
+    }
+
+    function init() {
+        ajax_request({ parameter: {
+                'action': 'scrollmeup_settings_data'
+            } }, function(response) {
+            if (response.status === "true") {
+                jQuery.each(response.data, function(key, value) {
+                    process_preview_from_saved_data({field: key, value: value})
+                });
+            }
+        });
 
     }
+
+    function ajax_request(data = {}, callback) {
+        jQuery.ajax({
+            url: ajaxurl,
+            type: "POST",
+            data: data.parameter,
+            success: function (res) {
+                const parsedResponse = JSON.parse(res);
+                if (typeof callback === 'function') {
+                    callback(parsedResponse);
+                }
+            }
+        });
+    }
+
 });
+
+
+
 
 
 
