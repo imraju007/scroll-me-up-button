@@ -33,10 +33,11 @@ function scrollmeup_save() {
 
         /* Advance */
         'scrollmeup_switch_width_height':   jQuery(".scrollmeup_switch_width_height input").val(),
-        'scrollmeup_switch_border_radius':  jQuery(".scrollmeup_switch_border_radius input").val(),
         'scrollmeup_switch_icon_width':     jQuery(".scrollmeup_switch_icon_width input").val(),
-        'scrollmeup_switch_bg':             jQuery(".scrollmeup_switch_bg input").val(),
         'scrollmeup_switch_icon_color':     jQuery(".scrollmeup_switch_icon_color input").val(),
+        'scrollmeup_use_background':        jQuery(".scrollmeup_use_background input[type='checkbox']:checked").length > 0 ? "1" : "0",
+        'scrollmeup_switch_bg':             jQuery(".scrollmeup_use_background input[type='checkbox']:checked").length > 0 ? jQuery(".scrollmeup_switch_bg input").val():"transparent",
+        'scrollmeup_switch_border_radius':  jQuery(".scrollmeup_switch_border_radius input").val(),
 
     };
 
@@ -68,6 +69,15 @@ function notification_handler(data = {}) {
 
 jQuery(document).ready(function($) {
     init();
+
+    $(".scrollmeup_menu ul li").on('click ', function(){
+        jQuery(".scrollmeup_menu ul li").removeClass("active");
+        jQuery(this).addClass('active')
+        jQuery(".scrollmeup_menu_content").children().removeClass("active");
+        const ref_class = jQuery(this).attr('data-ref');
+        jQuery(".scrollmeup_menu_content ."+ref_class).addClass("active");
+        console.log(jQuery(this).attr('data-ref'))
+    });
 
     $(".scrollmeup_switch_item").on('click ', function(){
         jQuery(".scrollmeup_switch_items .scrollmeup_switch_item").removeClass("active");
@@ -158,7 +168,7 @@ jQuery(document).ready(function($) {
         },
         'scrollmeup_switch_width_height': {
             type: 'style',
-            values : [{selector: '.scrollmeup_switch_preview', cssProperty: 'height', helper:'px'},{selector: '.scrollmeup_switch_preview', cssProperty: 'width', helper:'px'}]
+            values : [{selector: '.scrollmeup_switch_preview', cssProperty: 'width', helper:'px'}]
         },
         'scrollmeup_switch_border_radius': {
             type: 'style',
@@ -182,8 +192,8 @@ jQuery(document).ready(function($) {
                 'bottom_left': {
                     type : 'style',
                     values: [
-                        {selector: '.scrollmeup_switch_preview_container', cssProperty: 'align-items', helper: 'end'},
-                        {selector: '.scrollmeup_switch_preview_container', cssProperty: 'justify-content', helper: 'start'},
+                        {selector: '.scrollmeup_preview', cssProperty: 'align-items', helper: 'end'},
+                        {selector: '.scrollmeup_preview', cssProperty: 'justify-content', helper: 'start'},
                         {selector: '.scrollmeup_switch_margin_bottom_separator', cssProperty: 'display', helper: 'block'},
                         {selector: '.scrollmeup_switch_margin_bottom', cssProperty: 'display', helper: 'flex'},
                         {selector: '.scrollmeup_switch_margin_left_separator', cssProperty: 'display', helper: 'block'},
@@ -197,8 +207,8 @@ jQuery(document).ready(function($) {
                 'bottom_right': {
                     type : 'style',
                     values: [
-                        {selector: '.scrollmeup_switch_preview_container', cssProperty: 'align-items', helper: 'end'},
-                        {selector: '.scrollmeup_switch_preview_container', cssProperty: 'justify-content', helper: 'end'},
+                        {selector: '.scrollmeup_preview', cssProperty: 'align-items', helper: 'end'},
+                        {selector: '.scrollmeup_preview', cssProperty: 'justify-content', helper: 'end'},
                         {selector: '.scrollmeup_switch_margin_bottom_separator', cssProperty: 'display', helper: 'block'},
                         {selector: '.scrollmeup_switch_margin_bottom', cssProperty: 'display', helper: 'flex'},
                         {selector: '.scrollmeup_switch_margin_left_separator', cssProperty: 'display', helper: 'none'},
@@ -212,8 +222,8 @@ jQuery(document).ready(function($) {
                 'top_right': {
                     type : 'style',
                     values: [
-                        {selector: '.scrollmeup_switch_preview_container', cssProperty: 'align-items', helper: 'start'},
-                        {selector: '.scrollmeup_switch_preview_container', cssProperty: 'justify-content', helper: 'end'},
+                        {selector: '.scrollmeup_preview', cssProperty: 'align-items', helper: 'start'},
+                        {selector: '.scrollmeup_preview', cssProperty: 'justify-content', helper: 'end'},
                         {selector: '.scrollmeup_switch_margin_bottom_separator', cssProperty: 'display', helper: 'none'},
                         {selector: '.scrollmeup_switch_margin_bottom', cssProperty: 'display', helper: 'none'},
                         {selector: '.scrollmeup_switch_margin_left_separator', cssProperty: 'display', helper: 'none'},
@@ -227,8 +237,8 @@ jQuery(document).ready(function($) {
                 'top_left': {
                     type : 'style',
                     values: [
-                        {selector: '.scrollmeup_switch_preview_container', cssProperty: 'align-items', helper: 'start'},
-                        {selector: '.scrollmeup_switch_preview_container', cssProperty: 'justify-content', helper: 'start'},
+                        {selector: '.scrollmeup_preview', cssProperty: 'align-items', helper: 'start'},
+                        {selector: '.scrollmeup_preview', cssProperty: 'justify-content', helper: 'start'},
                         {selector: '.scrollmeup_switch_margin_bottom_separator', cssProperty: 'display', helper: 'none'},
                         {selector: '.scrollmeup_switch_margin_bottom', cssProperty: 'display', helper: 'none'},
                         {selector: '.scrollmeup_switch_margin_left_separator', cssProperty: 'display', helper: 'block'},
@@ -270,6 +280,31 @@ jQuery(document).ready(function($) {
         'scrollmeup_icon_design': {
             type: 'icon',
             values: []
+        },
+        'scrollmeup_use_background': {
+            type: 'choice',
+            choice : {
+                '1': {
+                    type : 'style',
+                    values: [
+                        {selector: '.scrollmeup_switch_bg', cssProperty: 'display', helper:'flex'},
+                        {selector: '.scrollmeup_switch_border_radius', cssProperty: 'display', helper:'flex'},
+                        {selector: '.scrollmeup_switch_bg_separator', cssProperty: 'display', helper:'block'},
+                        {selector: '.scrollmeup_switch_border_radius_separator', cssProperty: 'display', helper:'block'},
+                        {selector: '.scrollmeup_switch_preview', cssProperty: 'background', helper:jQuery(".scrollmeup_switch_bg input").val()}
+                    ]
+                },
+                '0': {
+                    type : 'style',
+                    values: [
+                        {selector: '.scrollmeup_switch_bg', cssProperty: 'display', helper:'none'},
+                        {selector: '.scrollmeup_switch_border_radius', cssProperty: 'display', helper:'none'},
+                        {selector: '.scrollmeup_switch_bg_separator', cssProperty: 'display', helper:'none'},
+                        {selector: '.scrollmeup_switch_border_radius_separator', cssProperty: 'display', helper:'none'},
+                        {selector: '.scrollmeup_switch_preview', cssProperty: 'background', helper:'transparent'}
+                    ]
+                },
+            }
         }
 
     }

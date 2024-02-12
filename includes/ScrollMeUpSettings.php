@@ -85,10 +85,17 @@ if ( ! class_exists( 'ScrollMeUpSettings' ) ) {
 
 			/* Advanced */
 			$this->process_data_from_option( $settings, "scrollmeup_switch_width_height", "64" );
-			$this->process_data_from_option( $settings, "scrollmeup_switch_border_radius", "50" );
 			$this->process_data_from_option( $settings, "scrollmeup_switch_icon_width", "35" );
-			$this->process_data_from_option( $settings, "scrollmeup_switch_bg", "#121116" );
 			$this->process_data_from_option( $settings, "scrollmeup_switch_icon_color", "#ffffff" );
+			$this->process_data_from_option( $settings, "scrollmeup_use_background", "0" );
+			if("1" == $this->updateSettings( 'scrollmeup_use_background' )){
+				$this->process_data_from_option( $settings, "scrollmeup_switch_bg", "#121116" );
+				$this->process_data_from_option( $settings, "scrollmeup_switch_border_radius", "50" );
+			}else{
+				$this->process_data_from_option( $settings, "scrollmeup_switch_bg", "transparent" );
+				$this->process_data_from_option( $settings, "scrollmeup_switch_border_radius", "0" );
+			}
+
 
 			return $settings;
 		}

@@ -28,11 +28,11 @@ if ( ! class_exists( 'ScrollMeUpFields' ) ) {
 			return $data;
 		}
 
-		public function get_separator( $data = [] ) {
+		public function get_separator( $args = [] ) {
 			ob_start();
 			?>
-            <div class="scrollmeup_section_block_separator <?php echo isset( $data['class'] ) ? $data['class'] . '_separator' : ''; ?>"
-                 style="<?php echo isset( $data['condition'] ) ? esc_attr( strpos( $data['condition']['value'], $data['condition']['needle'] ) !== false ? "" : "display: none;" ) : ""; ?>"></div>
+            <div class="scrollmeup_section_block_separator <?php echo isset( $args['class'] ) ? $args['class'] . '_separator' : ''; ?>"
+                 style="<?php echo isset( $args['condition'] ) ? esc_attr( strpos( $args['condition']['value'], $args['condition']['needle'] ) !== false ? "" : "display: none;" ) : ""; ?>"></div>
 			<?php
 			$data = ob_get_clean();
 
@@ -43,7 +43,7 @@ if ( ! class_exists( 'ScrollMeUpFields' ) ) {
 			array_push( $this->input_fields, $data['class_name'] );
 			ob_start();
 			?>
-            <div class="scrollmeup_checkbox_setting <?php echo esc_attr( $data['class_name'] ); ?>">
+            <div class="scrollmeup_checkbox_setting <?php echo esc_attr( $data['class_name'] ); ?>" style="<?php echo isset( $args['condition'] ) ? esc_attr( strpos( $args['condition']['value'], $args['condition']['needle'] ) !== false ? "" : "display: none;" ) : ""; ?>">
                 <label class="scrollmeup_checkbox_item scrollmeup_ignore"><input
                             type="checkbox" <?php echo esc_attr( $data["default_value"] == "1" ? "checked" : "" ) ?> <?php echo isset( $data['onChange'] ) ? "onchange='" . $data['onChange'] . "'" : "" ?>><span
                             class="scrollmeup_checkbox_checkmark"></span></label>

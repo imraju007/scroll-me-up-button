@@ -27,6 +27,7 @@ if ( current_user_can( 'manage_options' ) ) {
 			'scrollmeup_switch_width_height',
 			'scrollmeup_switch_border_radius',
 			'scrollmeup_switch_icon_width',
+			'scrollmeup_use_background',
 			'scrollmeup_switch_bg',
 			'scrollmeup_switch_icon_color'
 		];
