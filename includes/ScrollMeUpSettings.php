@@ -69,7 +69,7 @@ if ( ! class_exists( 'ScrollMeUpSettings' ) ) {
 			$this->process_data_from_option( $settings, "scrollmeup_switch_text", "Up" );
 			$this->process_data_from_option( $settings, "scrollmeup_text_font_size", "14" );
 			$this->process_data_from_option( $settings, "scrollmeup_text_font_weight", "500" );
-			$this->process_data_from_option( $settings, "scrollmeup_text_font_color", "#ffffff" );
+			$this->process_data_from_option( $settings, "scrollmeup_text_font_color", "#000000" );
 			$this->process_data_from_option( $settings, "scrollmeup_text_vertical", "0" );
 			$this->process_data_from_option( $settings, "scrollmeup_text_margin_top", "0" );
 			$this->process_data_from_option( $settings, "scrollmeup_text_margin_bottom", "0" );
@@ -86,7 +86,7 @@ if ( ! class_exists( 'ScrollMeUpSettings' ) ) {
 			/* Advanced */
 			$this->process_data_from_option( $settings, "scrollmeup_switch_width_height", "64" );
 			$this->process_data_from_option( $settings, "scrollmeup_switch_icon_width", "35" );
-			$this->process_data_from_option( $settings, "scrollmeup_switch_icon_color", "#ffffff" );
+			$this->process_data_from_option( $settings, "scrollmeup_switch_icon_color", "#000000" );
 			$this->process_data_from_option( $settings, "scrollmeup_use_background", "0" );
 			if("1" == $this->updateSettings( 'scrollmeup_use_background' )){
 				$this->process_data_from_option( $settings, "scrollmeup_switch_bg", "#121116" );

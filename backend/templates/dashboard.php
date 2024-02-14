@@ -34,6 +34,7 @@ $settings = $this->settings->get_all_scrollmeup_settings();
             </div>
         </div>
         <div class="scrollmeup_preview">
+            <label>PREVIEW</label>
             <div class="scrollmeup_switch_preview">
                 <div class="scrollmeup_switch_preview_icon" style="-webkit-mask: url(<?php echo SCROLLMEUP_IMG_DIR.'icons/'.esc_attr($settings["scrollmeup_icon_design"]); ?>.svg) no-repeat center;mask: url(<?php echo SCROLLMEUP_IMG_DIR.'icons/'.esc_attr($settings["scrollmeup_icon_design"]); ?>.svg) no-repeat center;"></div>
                 <span class="scrollmeup_switch_preview_text" style="<?php echo ($settings["scrollmeup_text_switch"] == "1")?'': 'display:none;'; ?>"><?php echo esc_attr($settings["scrollmeup_switch_text"]); ?></span>

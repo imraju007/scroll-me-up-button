@@ -1,9 +1,1 @@
-<svg class="svg-icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-	 viewBox="0 0 25.361 25.362"
-	 xml:space="preserve">
-<g>
-	<path d="M23.862,0H1.5C0.671,0,0,0.673,0,1.5v22.36c0,0.827,0.671,1.5,1.5,1.5h22.361c0.828,0,1.5-0.673,1.5-1.5V1.5
-		C25.362,0.673,24.689,0,23.862,0z M22.362,22.363H3V3h19.361L22.362,22.363L22.362,22.363z M19.913,18.09L5.392,18.02l7.315-11.042
-		L19.913,18.09z"/>
-</g>
-</svg>
+<svg class="svg-icon" style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1463 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M73.270857 1024h1316.571429a73.142857 73.142857 0 0 0 0-146.285714H73.270857a73.142857 73.142857 0 0 0 0 146.285714zM679.844571 21.430857a73.142857 73.142857 0 0 1 103.424 0l658.285715 658.285714c46.08 46.08 13.458286 124.854857-51.712 124.854858H73.270857C8.173714 804.571429-24.521143 725.796571 21.558857 679.716571l658.285714-658.285714zM731.556571 176.566857L249.837714 658.285714h963.437715L731.556571 176.566857z" fill="#000000" /></svg>

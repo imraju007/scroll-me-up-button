@@ -1,12 +1,30 @@
+@font-face {
+    font-family: 'Google Sans Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Google Sans Regular'), url('google.woff2') format('woff2');
+}
+.scrollmeup_main * {
+    -webkit-transition:0.2s;
+    -moz-transition:0.2s;
+    -o-transition:0.2s;
+    transition:0.2s;
+    -webkit-transition-timing-function: ease-in;
+    -moz-transition-timing-function: ease-in;
+    -o-transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
+}
 .scrollmeup_main {
     background: #F0F0F1;
     margin-left: -20px;
     padding: 30px;
-    min-height: 100vh;
+    max-height: 100vh;
+    font-family: 'Google Sans', sans-serif;
 }
 
 .scrollmeup_container{
     display: flex;
+    height: 760px;
 }
 
 .scrollmeup_body{
@@ -22,7 +40,7 @@
     padding: 14px;
     display: flex;
     border-radius: 8px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
 }
 .scrollmeup_menu ul{
     display: contents;
@@ -36,8 +54,12 @@
     margin-left: 10px;
     margin-right: 10px;
     cursor: pointer;
+    font-family: inherit;
+    color: #5F6368;
 }
 .scrollmeup_menu ul li.active{
+    font-weight: 600;
+    color: #202124;
     border-bottom: 3px solid #EF5812;
 }
 
@@ -70,9 +92,11 @@
 .scrollmeup_sidebar_label{
 }
 .scrollmeup_sidebar_label span{
-    font-size: 30px;
+    margin-left: 10px;
+    font-size: 25px;
     font-weight: 600;
-    color: black;
+    color: #5F6368;
+    font-family: 'Google Sans', sans-serif;
 }
 
 .scrollmeup_save_btn_container{
@@ -104,12 +128,8 @@
     background: #F9FAFB;
     border: 1px solid #E8EBEE;
     padding: 25px;
-}
-.scrollmeup_preview_section_block{
-    background: #F9FAFB;
-    border: 1px solid #E8EBEE;
-    padding: 25px;
-    width: 100%;
+    max-height: 480px;
+    overflow-y: auto;
 }
 
 .scrollmeup_section_header{
@@ -134,6 +154,63 @@
     margin: 20px 0;
 }
 
+/* ========================
+    Switch Preview Design
+===========================*/
+.scrollmeup_preview{
+    flex: 1;
+    background: #fff;
+    width: 30%;
+    height: 250px;
+    margin-left: 20px;
+    border-radius: 8px;
+    display: flex;
+    position: relative;
+}
+.scrollmeup_preview label{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: auto auto;
+    transform: translate(-50%,-50%);
+    font-size: 32px;
+    font-weight: 600;
+    color: #f5f5f5;
+}
+
+.scrollmeup_switch_preview{
+    width: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 0;
+    transition: all .3s;
+    overflow: hidden;
+    z-index: 2;
+    padding: 10px 10px;
+    margin: 40px;
+}
+
+.scrollmeup_switch_preview:hover {
+    cursor: pointer;
+    transform: translateY(-8px);
+    transition: all .3s;
+}
+.scrollmeup_switch_preview .scrollmeup_switch_preview_icon{
+    display: block;
+    width: 35px;
+    height: 35px;
+    background-color: #000000;
+}
+.scrollmeup_switch_preview  .scrollmeup_switch_preview_text{
+    font-size: 14px;
+    font-weight: 500;
+    color: #000000;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 
 
 /* ========================
@@ -148,13 +225,13 @@
 }
 .scrollmeup_checkbox_setting .scrollmeup_checkbox_setting_details h4{
     margin: 0;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 700;
     color: #000000;
 }
 .scrollmeup_checkbox_setting .scrollmeup_checkbox_setting_details p{
     margin: 5px 0 0 0;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 400;
     color: #72777C;
 }
@@ -164,7 +241,7 @@
     width: 15px;
     cursor: pointer;
     margin: 2px 0 0 0;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 400;
     color: #43454b;
     -webkit-user-select: none;
@@ -224,57 +301,6 @@
 }
 .scrollmeup_switch_items .scrollmeup_switch_item.active{
     border: 1px solid #000000;
-}
-
-
-/* ========================
-    Switch Preview Design
-===========================*/
-.scrollmeup_preview{
-    flex: 1;
-    background: #fff;
-    width: 30%;
-    height: 250px;
-    margin-left: 20px;
-    border-radius: 8px;
-    display: flex;
-}
-
-.scrollmeup_switch_preview{
-    background: #000000;
-    width: 64px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 50%;
-    transition: all .3s;
-    overflow: hidden;
-    z-index: 99999;
-    padding: 10px 10px;
-    margin-bottom: 40px;
-    margin-top: 40px;
-    margin-left: 40px;
-    margin-right: 40px;
-}
-
-.scrollmeup_switch_preview:hover {
-    cursor: pointer;
-    transform: translateY(-8px);
-    transition: all .3s;
-}
-.scrollmeup_switch_preview .scrollmeup_switch_preview_icon{
-    display: block;
-    width: 35px;
-    height: 35px;
-    background-color: #ffffff;
-}
-.scrollmeup_switch_preview  .scrollmeup_switch_preview_text{
-    font-size: 14px;
-    font-weight: 500;
-    color: #ffffff;
-    margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 
@@ -362,12 +388,11 @@
     border-color: transparent;
     border-radius: 3px;
 }
-
 /*Notifications*/
 .scrollmeup_notification {
     position: fixed;
     right: -200px;
-    top: 50px;
+    bottom: 50px;
     width: 200px;
     height: 35px;
     background: #FFE100;
