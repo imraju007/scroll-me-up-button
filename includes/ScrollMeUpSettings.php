@@ -13,7 +13,7 @@ if ( ! class_exists( 'ScrollMeUpSettings' ) ) {
 
 			$this->base_admin = $base_admin;
 
-			$defaultOption = array();
+			$defaultOption = [];
 			if ( ! get_option( "scrollmeup_settings" ) ) {
 				update_option( 'scrollmeup_settings', $defaultOption );
 			}
@@ -28,22 +28,22 @@ if ( ! class_exists( 'ScrollMeUpSettings' ) ) {
 			$dataNewSettings = array();
 			foreach ( $dataSettings as $singleSettings ) {
 				if ( isset( $singleSettings['key'] ) ) {
-					if ( $singleSettings['key'] == $key ) {
+					if ( $singleSettings['key'] === $key ) {
 						$exits                   = true;
 						$exitingValue            = $singleSettings['value'];
-						$singleSettings['value'] = ( $value != "<<scrollmeup_empty_value>>" ) ? $value : $singleSettings['value'];
+						$singleSettings['value'] = ( $value !== "<<scrollmeup_empty_value>>" ) ? $value : $singleSettings['value'];
 					}
 				}
-				if ( $value != "<<scrollmeup_empty_value>>" ) {
+				if ( $value !== "<<scrollmeup_empty_value>>" ) {
 					$dataNewSettings[] = $singleSettings;
 				}
 			}
-			if ( $exits && $value != "<<scrollmeup_empty_value>>" ) {
+			if ( $exits && $value !== "<<scrollmeup_empty_value>>" ) {
 				update_option( 'scrollmeup_settings', $dataNewSettings );
-			} else if ( ! $exits && $value != "<<scrollmeup_empty_value>>" ) {
+			} else if ( ! $exits && $value !== "<<scrollmeup_empty_value>>" ) {
 				$dataNewSettings[] = array( "key" => $key, "value" => $value );
 				update_option( 'scrollmeup_settings', $dataNewSettings );
-			} else if ( $exits && $value == "<<scrollmeup_empty_value>>" ) {
+			} else if ( $exits && $value === "<<scrollmeup_empty_value>>" ) {
 				return stripslashes( $exitingValue );
 			} else {
 				return null;
@@ -125,6 +125,29 @@ if ( ! class_exists( 'ScrollMeUpSettings' ) ) {
 			}
 
 			return $result;
+		}
+		public function get_all_templete_icons() {
+			$result    = [];
+			$directory = SCROLLMEUP_IMG_PATH . 'templates/';
+
+			if ( is_dir( $directory ) ) {
+				foreach ( scandir( $directory ) as $file ) {
+					if ( $file !== '.' && $file !== '..' ) {
+						$fullPath = SCROLLMEUP_IMG_DIR . 'templates/' . $file;
+						$result[] = [
+							'url'                 => $fullPath,
+							'name'                => pathinfo( $fullPath, PATHINFO_FILENAME ),
+							'name_with_extension' => wp_basename( $fullPath )
+						];
+					}
+				}
+			}
+
+			return $result;
+		}
+
+		public function template_import($template_data){
+			update_option( 'scrollmeup_settings', $template_data );
 		}
 
 	}

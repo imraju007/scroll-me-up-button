@@ -75,8 +75,23 @@ jQuery(document).ready(function($) {
         jQuery(this).addClass('active')
         jQuery(".scrollmeup_menu_content").children().removeClass("active");
         const ref_class = jQuery(this).attr('data-ref');
-        jQuery(".scrollmeup_menu_content ."+ref_class).addClass("active");
-        console.log(jQuery(this).attr('data-ref'))
+        jQuery(`.scrollmeup_menu_content .${ref_class}`).addClass("active");
+    });
+
+    $(".scrollmeup_sidebar_right_content ul li").on('click ', function(){
+        const right_popup_panel = jQuery(".scrollmeup_right_popup_panel");
+        right_popup_panel.addClass('active');
+        jQuery(`.scrollmeup_right_popup_panel .${jQuery(this).attr('data-ref')}`).addClass('active');
+        right_popup_panel.attr('data-ref', jQuery(this).attr('data-ref'))
+    });
+
+    $(".scrollmeup_right_popup_panel .close-popup").on('click ', function(){
+        const ref_class = jQuery(this).parent().parent().attr('data-ref');
+        jQuery(".scrollmeup_right_popup_panel").removeClass("active");
+        setTimeout(function () {
+            jQuery(`.scrollmeup_right_popup_panel .${ref_class}`).removeClass("active");
+        },500)
+
     });
 
     $(".scrollmeup_switch_item").on('click ', function(){
@@ -94,6 +109,11 @@ jQuery(document).ready(function($) {
             process_preview_input(this.parentNode.parentNode.classList[1], this.checked? "1":"0");
         }
         process_preview_input(event.target.parentNode.classList[1], event.target.value)
+    });
+
+    $(".scrollmeup_template_items span").on('click ', function(){
+        jQuery(this).parent().parent().addClass('processing');
+        process_template(jQuery(this).attr('data-tmp_name').replace("http://", ""));
     });
 
     const properties = {
@@ -328,6 +348,7 @@ jQuery(document).ready(function($) {
             }
         }
     }
+
     function process_preview_image(field, value) {
         const preview_icon = $('.scrollmeup_switch_preview_icon');
         preview_icon.css("-webkit-mask", "url(" + scrollmeup_data.scrollmeup_img_url + "icons/" + value + ".svg) no-repeat center");
@@ -355,12 +376,27 @@ jQuery(document).ready(function($) {
 
     }
 
+    function process_template(tmp_name){
+        ajax_request({ parameter: {
+                'action': 'scrollmeup_import_template',
+                'template_name' : tmp_name
+            } }, function(response) {
+            if (response.status === "true") {
+                setTimeout(function (){
+                    notification_handler({parent: '.scrollmeup_main', text: "Imported", time: 3000});
+                    location.reload();
+                },3000);
+            }
+        });
+    }
+
     function ajax_request(data = {}, callback) {
         jQuery.ajax({
             url: ajaxurl,
             type: "POST",
             data: data.parameter,
             success: function (res) {
+                console.log(res);
                 const parsedResponse = JSON.parse(res);
                 if (typeof callback === 'function') {
                     callback(parsedResponse);
